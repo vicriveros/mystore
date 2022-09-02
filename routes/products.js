@@ -19,17 +19,23 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const {id} = req.params; //recibir parametro por url sin el simbolo ?
-    res.json({
-        id,
-        name: 'product 4',
-        price: 4000
-    })
+    if(id === '999'){
+        res.status(404).json({
+            message: 'Not found'
+        })    
+    }else{
+        res.status(200).json({
+            id,
+            name: 'product 4',
+            price: 4000
+        })
+    }
 })
 
 //crear producto
 router.post('/', (req, res) => {
     const body = req.body;
-    res.json({
+    res.status(201).json({
         message: 'Created',
         data: body
     });
