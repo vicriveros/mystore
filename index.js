@@ -1,33 +1,17 @@
 const express = require('express');
+const routerApi = require('./routes');
+
 const app = express();
 const port = 3000;
+
+app.use(express.json()); //middelware utilizado para poder recibir datos json en la app
 
 app.get('/', (req, res) => {
     res.send('Este es mi server en express');
 })
 
-app.get('/products', (req, res) => {
-    res.json([
-        {
-            name: 'product 1',
-            price: '2000'
-        },
-        {
-            name: 'product 2',
-            price: '3000'
-        }
-    ])
-})
-
-app.get('/products/:id', (req, res) => {
-    const {id} = req.params;
-    res.json({
-        id,
-        name: 'product 4',
-        price: 4000
-    })
-})
-
-app.listen(port, ()=> {
+app.listen(port, ()=> { //se crea el servidor http y escucha el puerto 3000
     console.log('Mi port' + port)
 })
+
+routerApi(app); //inicializa las rutas creadas en /routes
