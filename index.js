@@ -1,6 +1,8 @@
 const express = require('express');
 const routerApi = require('./routes');
 
+const {logErrors, errorHandler, boomErrorHandler} = require('./middlewares/error.handler');
+
 const app = express();
 const port = 3000;
 
@@ -15,3 +17,7 @@ app.listen(port, ()=> { //se crea el servidor http y escucha el puerto 3000
 })
 
 routerApi(app); //inicializa las rutas creadas en /routes
+
+app.use(logErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
